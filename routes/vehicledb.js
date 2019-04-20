@@ -36,4 +36,18 @@ router.get('/addvehicle', function(req, res){
   });
 });
 
+router.get('/exitvehicle', function(req, res){
+  var licensePlate = req.query.licensePlate;
+  var exitTime = req.query.exitTime;
+
+  Vehicle.addExitTime(licensePlate, exitTime, function(success, vehicle){
+    if (success){
+      res.send({success:true, vehicle:vehicle});
+    }
+    else {
+      res.send({success:false});
+    }
+  });
+});
+
 module.exports = router;
