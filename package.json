@@ -1,0 +1,17 @@
+{
+  "name": "dvlaserver",
+  "version": "1.0.0",
+  "description": "Acts as a midpoint server to interact with the dvlasearch api",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Gavin Miller",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "mongoose": "^5.5.2",
+    "morgan": "^1.9.1",
+    "request": "^2.88.0"
+  }
+}
