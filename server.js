@@ -9,7 +9,7 @@ const morgan = require('morgan');
 const app = express();
 
 // Connect to mongodb
-//require('./config/databasesetup')(mongoose);
+require('./config/databasesetup')(mongoose);
 
 // Check if there is a pre-defined port, otherwise use 8080
 const port = process.env.PORT || 8080;
