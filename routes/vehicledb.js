@@ -4,7 +4,7 @@ const request = require('request');
 
 var Vehicle = require('../models/vehicle');
 
-router.get('/', function(req, res){
+router.get('/getvehicle', function(req, res){
   var licensePlate = req.query.licensePlate;
 
   Vehicle.findOne({license_plate: licensePlate}, function(err, vehicle){
@@ -18,6 +18,21 @@ router.get('/', function(req, res){
       res.send({'authorised':false});
     }
     return;
+  });
+});
+
+router.get('/addvehicle', function(req, res){
+  var licensePlate = req.query.licensePlate;
+  var entryTime = req.query.entryTime;
+
+  Vehicle.addEntryTime(licensePlate, entryTime, function(vehicle){
+    if (vehicle){
+      res.send({success:true, vehicle:vehicle});
+    }
+    else{
+      res.send({success:false});
+    }
+
   });
 });
 
