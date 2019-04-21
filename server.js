@@ -8,6 +8,7 @@ const morgan = require('morgan');
 
 const app = express();
 
+
 // Connect to mongodb
 require('./config/databasesetup')(mongoose);
 
@@ -27,6 +28,15 @@ require('./config/routes')(app);
 app.use(express.static('public'));
 
 // Begin listening for requests
-app.listen(port);
+//app.listen(port);
+
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+
+http.listen(80);
 
 console.log("Listening on port: " + port);
+
+io.on('connection', function(socket){
+  console.log("Data");
+});
