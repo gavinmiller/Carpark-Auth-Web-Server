@@ -7,7 +7,8 @@ var VehicleSchema = new Schema({
   license_plate: String,
   authorised: {type: Boolean, default: true},
   access_times:[{entry_time:Date, exit_time:Date}],
-  is_parked:Boolean
+  is_parked:Boolean,
+  last_access_time: Date
 });
 
 var Vehicle = module.exports = mongoose.model('vehicles', VehicleSchema);
@@ -26,6 +27,7 @@ module.exports.addVehicle = function(licensePlate, datetime, authorised, callbac
       newVehicle.authorised = authorised;
       newVehicle.is_parked = true;
       newVehicle.access_times = [{entry_time:datetime}];
+      newVehicle.last_access_time = datetime;
 
       newVehicle.save(function(err, post){
         if (err) throw err;
@@ -42,11 +44,15 @@ module.exports.addEntryTime = function(licensePlate, datetime, callback){
 
     if (vehicle){
       vehicle.access_times.push({entry_time:datetime});
+      vehicle.last_access_time = datetime;
+      vehicle.is_parked = true;
     }
     else {
       vehicle = new Vehicle();
       vehicle.license_plate = licensePlate;
       vehicle.access_times = [{entry_time:datetime}];
+      vehicle.last_access_time = datetime;
+      vehicle.is_parked = true;
     }
 
     vehicle.save(function(err, post){
@@ -75,6 +81,8 @@ module.exports.addExitTime = function(licensePlate, exitTime, callback){
 
       if (found){
         vehicle.access_times = accessTimes;
+        vehicle.last_access_time = exitTime;
+        vehicle.is_parked = false;
 
         vehicle.save(function(err, newVehicle){
           if (err) throw err;

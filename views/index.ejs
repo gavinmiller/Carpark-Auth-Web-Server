@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Carpark System</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+  </head>
+  <body>
+    <h1>Carpark System</h1>
+
+    <div class="table">
+      <h3>Vehicles</h3>
+      <table>
+        <tr>
+          <th>License Plate</th>
+          <th>Inside Car Park</th>
+          <th>Is Authorised</th>
+          <th>Last Access Time</th>
+        </tr>
+        <% if(vehicles){ %>
+          <% vehicles.forEach(function(vehicle){ %>
+            <tr>
+              <td><%= vehicle.license_plate %></td>
+              <td><%= vehicle.is_parked ? 'yes' : 'no' %></td>
+              <td><%= vehicle.authorised ? 'yes' : 'no' %></td>
+              <td><%= vehicle.last_access_time %></td>
+            </tr>
+          <% }) %>
+        <% } %>
+
+      </table>
+    </div>
+
+  </body>
+</html>
