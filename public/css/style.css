@@ -1,9 +1,14 @@
+body{
+  text-align: center;
+}
+
 table{
   border-width: 2px;
   border-color: lightgrey;
   border-style: solid;
   border-collapse: collapse;
   text-align: center;
+  margin: auto;
 }
 
 th, td {
@@ -18,4 +23,20 @@ tr:nth-child(even){
 
 tr:hover{
   background-color: rgba(225, 225, 225, 1.0);
+}
+
+form{
+  padding: 10px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: lightgrey;
+  margin: 10px auto;
+  width: min-content;
+}
+
+form *{
+  margin: 10px;
+}
+
+.formButton{
 }

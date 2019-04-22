@@ -10,7 +10,7 @@ router.get('/getvehicle', function(req, res){
   Vehicle.findOne({license_plate: licensePlate}, function(err, vehicle){
     if (err) throw err;
 
-    console.log(vehicle);
+    //console.log(vehicle);
     if (vehicle){
       res.send(vehicle);
     }
@@ -27,9 +27,11 @@ router.get('/addvehicle', function(req, res){
 
   Vehicle.addEntryTime(licensePlate, entryTime, function(vehicle){
     if (vehicle){
+      //req.app.io.emit('displayMessage', {'authorised': true});
       res.send({success:true, vehicle:vehicle});
     }
     else{
+      //req.app.io.emit('displayMessage', {'authorised': false});
       res.send({success:false});
     }
 
@@ -42,9 +44,11 @@ router.get('/exitvehicle', function(req, res){
 
   Vehicle.addExitTime(licensePlate, exitTime, function(success, vehicle){
     if (success){
+
       res.send({success:true, vehicle:vehicle});
     }
     else {
+
       res.send({success:false});
     }
   });

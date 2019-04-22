@@ -14,7 +14,7 @@
       <table>
         <tr>
           <th>License Plate</th>
-          <th>Inside Car Park</th>
+          <!-- <th>Inside Car Park</th> -->
           <th>Is Authorised</th>
           <th>Last Access Time</th>
         </tr>
@@ -22,7 +22,7 @@
           <% vehicles.forEach(function(vehicle){ %>
             <tr>
               <td><%= vehicle.license_plate %></td>
-              <td><%= vehicle.is_parked ? 'yes' : 'no' %></td>
+              <!-- <td><%= vehicle.is_parked ? 'yes' : 'no' %></td> -->
               <td><%= vehicle.authorised ? 'yes' : 'no' %></td>
               <td><%= vehicle.last_access_time %></td>
             </tr>
@@ -30,6 +30,14 @@
         <% } %>
 
       </table>
+
+      <form class="" action="addvehicle" method="post">
+        <label for="licenseplate">License Plate:</label>
+        <input type="text" name="licenseplate" placeholder="Enter license plate here..." minlength="7" maxlength="7" required>
+        <label for="authorised">Authorised:</label>
+        <input type="checkbox" name="authorised">
+        <button class="formButton" type="submit" name="submit">Add Vehicle</button>
+      </form>
     </div>
 
   </body>
