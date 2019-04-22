@@ -9,6 +9,7 @@ table{
   border-collapse: collapse;
   text-align: center;
   margin: auto;
+  min-width: 630px;
 }
 
 th, td {
@@ -17,12 +18,26 @@ th, td {
 }
 
 
-tr:nth-child(even){
+tbody tr:nth-child(odd){
   background-color: rgba(175, 175, 175, 0.6);
 }
 
-tr:hover{
+tbody tr:hover{
   background-color: rgba(225, 225, 225, 1.0);
+  cursor: pointer;
+}
+
+.selected{
+  background-color: rgba(100, 200, 100, 0.6) !important;
+}
+
+button{
+  background-color: rgba(175,175,175,0.6);
+  margin: 10px;
+}
+
+button:hover{
+  background-color: rgba(225,225,225,1.0);
 }
 
 form{

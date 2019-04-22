@@ -47,7 +47,7 @@ module.exports.addParkingSpace = function(id, location, callback){
 }
 
 module.exports.removeParkingSpace = function(id, callback){
-  ParkingSpace.remove({id:id}, function(err){
+  ParkingSpace.deleteOne({id:id}, function(err){
     if (err) throw err;
 
     callback(true);

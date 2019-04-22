@@ -4,19 +4,28 @@ const router = express.Router();
 var Vehicle = require('../models/vehicle');
 var ParkingSpace = require('../models/parkingspace');
 
+const SHOW_PARKING_SPACE_CONTROLS = true;
+
 router.get('/', function(req, res){
-  Vehicle.find({}, function(err, post){
+  Vehicle.find({}, function(err, vehicles){
     if (err) throw err;
 
-    res.render('index', {vehicles: post});
-  });
+    ParkingSpace.find({}, function(err, spaces){
+      if (err) throw err;
 
+      res.render('index', {vehicles: vehicles, spaces: spaces, showParkingSpaceControls:SHOW_PARKING_SPACE_CONTROLS});
+    });
+  });
 });
 
 router.get('/message', function(req, res){
   var message = req.query.msg;
   console.log("Message sent: " + message);
-  req.app.io.emit('displayMessage', message);
+
+  if (req.app && req.app.io){
+    req.app.io.emit('displayMessage', message);
+  }
+
   res.send({'success':true});
 });
 
@@ -40,6 +49,32 @@ router.post('/addvehicle', function(req, res){
     }
 
     res.redirect('/');
+  });
+});
+
+router.post('/addparkingspace', function(req, res){
+  var id = req.body.id;
+  var floor = req.body.floor;
+  var direction = req.body.direction;
+
+  ParkingSpace.addParkingSpace(id, {floor:floor, direction:direction}, function(success){
+    res.redirect('/');
+  });
+});
+
+router.get('/removevehicle', function(req, res){
+  var licensePlate = req.query.licensePlate;
+
+  Vehicle.removeVehicle(licensePlate, function(success){
+    res.send({success:success});
+  });
+});
+
+router.get('/removespace', function(req, res){
+  var id = req.query.id;
+
+  ParkingSpace.removeParkingSpace(id, function(success){
+    res.send({success:success});
   });
 });
 

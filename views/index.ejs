@@ -13,24 +13,35 @@
       <div class="column">
         <h3>Vehicles</h3>
         <table>
+          <thead>
           <tr>
             <th>License Plate</th>
             <!-- <th>Inside Car Park</th> -->
             <th>Is Authorised</th>
             <th>Last Access Time</th>
           </tr>
-          <% if(vehicles){ %>
+          </thead>
+          <tbody>
+          <% if(vehicles && vehicles.length){ %>
             <% vehicles.forEach(function(vehicle){ %>
-              <tr>
-                <td><%= vehicle.license_plate %></td>
+              <tr class="vehicle">
+                <td id="licensePlate"><%= vehicle.license_plate %></td>
                 <!-- <td><%= vehicle.is_parked ? 'yes' : 'no' %></td> -->
                 <td><%= vehicle.authorised ? 'yes' : 'no' %></td>
                 <td><%= vehicle.last_access_time %></td>
               </tr>
             <% }) %>
-          <% } %>
+            <% } else { %>
+              <tr>
+                <td>EMPTY</td>
+                <td>EMPTY</td>
+                <td>EMPTY</td>
+              </tr>
+            <% } %>
+          </tbody>
 
         </table>
+        <button type="button" id="removeVehicleBtn">Remove Vehicle</button>
 
         <form class="" action="addvehicle" method="post">
           <label for="licenseplate">License Plate:</label>
@@ -40,38 +51,52 @@
           <button class="formButton" type="submit" name="submit">Add Vehicle</button>
         </form>
       </div>
+
       <div class="column">
         <h3>Parking Spaces</h3>
         <table>
-          <tr>
-            <th>ID</th>
-            <th>Location</th>
-            <th>Occupied</th>
-          </tr>
-          <% if(vehicles){ %>
-            <% vehicles.forEach(function(vehicle){ %>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Location</th>
+              <th>Occupied</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if(spaces && spaces.length){ %>
+              <% spaces.forEach(function(space){ %>
+                <tr class="pSpace">
+                  <td id="id"><%= space.id %></td>
+                  <td><%= space.location %></td>
+                  <td><%= space.occupied ? 'yes' : 'no' %></td>
+                </tr>
+              <% }) %>
+            <% } else { %>
               <tr>
-                <td><%= vehicle.license_plate %></td>
-                <td><%= vehicle.authorised ? 'yes' : 'no' %></td>
-                <td><%= vehicle.last_access_time %></td>
+                <td>EMPTY</td>
+                <td>EMPTY</td>
+                <td>EMPTY</td>
               </tr>
-            <% }) %>
-          <% } %>
-
+            <% } %>
+          </tbody>
         </table>
-
-        <form class="" action="addparkingspace" method="post">
-          <label for="id">Parking Space ID:</label>
-          <input type="text" name="id" placeholder="Enter Parking space ID here..." required>
-          <label for="floor">Floor:</label>
-          <input type="text" name="floor" placeholder="Enter floor number here..." required>
-          <label for="direction">Direction:</label>
-          <input type="text" name="direction" placeholder="Enter direction(left/right etc.) here..." required>
-          <button class="formButton" type="submit" name="submit">Add Parking Space</button>
-        </form>
-      </div>
+        <button type="button" id="removeSpaceButton">Remove Parking Space</button>
+        <% if(showParkingSpaceControls){ %>
+          <form class="" action="addparkingspace" method="post">
+            <label for="id">Parking Space ID:</label>
+            <input type="text" name="id" placeholder="Enter Parking space ID here..." required>
+            <label for="floor">Floor:</label>
+            <input type="text" name="floor" placeholder="Enter floor number here..." required>
+            <label for="direction">Direction:</label>
+            <input type="text" name="direction" placeholder="Enter direction(left/right etc.) here..." required>
+            <button class="formButton" type="submit" name="submit">Add Parking Space</button>
+          </form>
+        <% } %>
       </div>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/index.js">
 
+    </script>
   </body>
 </html>

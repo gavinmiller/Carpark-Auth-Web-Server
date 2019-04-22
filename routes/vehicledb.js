@@ -27,11 +27,9 @@ router.get('/addvehicle', function(req, res){
 
   Vehicle.addEntryTime(licensePlate, entryTime, function(vehicle){
     if (vehicle){
-      //req.app.io.emit('displayMessage', {'authorised': true});
       res.send({success:true, vehicle:vehicle});
     }
     else{
-      //req.app.io.emit('displayMessage', {'authorised': false});
       res.send({success:false});
     }
 
