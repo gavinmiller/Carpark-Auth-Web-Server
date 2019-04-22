@@ -40,3 +40,12 @@ form *{
 
 .formButton{
 }
+
+.mainContent{
+  display: flex;
+}
+
+.column{
+  display: block;
+  margin: 10px auto;
+}

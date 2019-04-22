@@ -99,3 +99,11 @@ module.exports.addExitTime = function(licensePlate, exitTime, callback){
     }
   });
 }
+
+module.exports.removeVehicle = function(licensePlate, callback){
+  Vehicle.remove({license_plate:licensePlate}, function(err){
+    if (err) throw err;
+
+    callback(true);
+  })
+}
