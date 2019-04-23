@@ -1,8 +1,11 @@
+/*
+* Models a parking space
+*/
 var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
 
-// The divesite db model
+// The parking space db model
 var ParkingSpaceSchema = new Schema({
   occupied:{type: Boolean, default: false},
   location:{floor: String, direction: String},

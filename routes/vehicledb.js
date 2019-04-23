@@ -1,9 +1,13 @@
+/*
+* Router for interacting with the vehicles db collection
+*/
 const express = require('express');
 const router = express.Router();
 const request = require('request');
 
 var Vehicle = require('../models/vehicle');
 
+// Gets a vehicle stored in the db
 router.get('/getvehicle', function(req, res){
   var licensePlate = req.query.licensePlate;
 
@@ -21,6 +25,7 @@ router.get('/getvehicle', function(req, res){
   });
 });
 
+// Adds a vehicle and entry time to the db
 router.get('/addvehicle', function(req, res){
   var licensePlate = req.query.licensePlate;
   var entryTime = req.query.entryTime;
@@ -36,6 +41,7 @@ router.get('/addvehicle', function(req, res){
   });
 });
 
+// UNUSED adds an exit time for the vehicle on the way out
 router.get('/exitvehicle', function(req, res){
   var licensePlate = req.query.licensePlate;
   var exitTime = req.query.exitTime;

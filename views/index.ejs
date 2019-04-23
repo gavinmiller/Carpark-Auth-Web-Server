@@ -16,7 +16,6 @@
           <thead>
           <tr>
             <th>License Plate</th>
-            <!-- <th>Inside Car Park</th> -->
             <th>Is Authorised</th>
             <th>Last Access Time</th>
           </tr>
@@ -26,7 +25,6 @@
             <% vehicles.forEach(function(vehicle){ %>
               <tr class="vehicle">
                 <td id="licensePlate"><%= vehicle.license_plate %></td>
-                <!-- <td><%= vehicle.is_parked ? 'yes' : 'no' %></td> -->
                 <td><%= vehicle.authorised ? 'yes' : 'no' %></td>
                 <td><%= vehicle.last_access_time %></td>
               </tr>

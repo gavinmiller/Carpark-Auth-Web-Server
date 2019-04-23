@@ -1,11 +1,16 @@
+/*
+* Index router file, handles most routes
+*/
+
 const express = require('express');
 const router = express.Router();
 
 var Vehicle = require('../models/vehicle');
 var ParkingSpace = require('../models/parkingspace');
 
-const SHOW_PARKING_SPACE_CONTROLS = true;
+const SHOW_PARKING_SPACE_CONTROLS = true; // Shows/hides the form for adding parking spaces manually
 
+// Main page rendering
 router.get('/', function(req, res){
   Vehicle.find({}, function(err, vehicles){
     if (err) throw err;
@@ -18,6 +23,7 @@ router.get('/', function(req, res){
   });
 });
 
+// Sends a simple 'display this' message to the display pi
 router.get('/message', function(req, res){
   var message = req.query.msg;
   console.log("Message sent: " + message);
@@ -29,6 +35,7 @@ router.get('/message', function(req, res){
   res.send({'success':true});
 });
 
+// Sends a status code and message to the display pi to indicate what kind of message is to be displayed
 router.get('/displayadvanced', function(req, res){
   var statusCode = req.query.statusCode;
   var message = req.query.message;
@@ -40,6 +47,7 @@ router.get('/displayadvanced', function(req, res){
   res.send({'success':true});
 });
 
+// Returns true or false depending on if there are any unoccupied parking spaces
 router.get('/getvacancies', function(req, res){
   ParkingSpace.getFreeSpace(function(freeSpace){
     console.log(freeSpace);
@@ -52,6 +60,7 @@ router.get('/getvacancies', function(req, res){
   });
 });
 
+// Form for adding vehicles to the db
 router.post('/addvehicle', function(req, res){
   var licensePlate = req.body.licenseplate.toUpperCase();
   var authorisedBody = req.body.authorised;
@@ -69,6 +78,7 @@ router.post('/addvehicle', function(req, res){
   });
 });
 
+// Query to initialise a parking space on parking space pi startup
 router.get('/initparkingspace', function(req, res){
   var id = req.query.id;
   var floor = req.query.floor;
@@ -79,6 +89,7 @@ router.get('/initparkingspace', function(req, res){
   });
 });
 
+// Form to add a parking space to the db
 router.post('/addparkingspace', function(req, res){
   var id = req.body.id;
   var floor = req.body.floor;
@@ -89,6 +100,7 @@ router.post('/addparkingspace', function(req, res){
   });
 });
 
+// Removes a vehicle with given id from db
 router.get('/removevehicle', function(req, res){
   var licensePlate = req.query.licensePlate;
 
@@ -97,6 +109,7 @@ router.get('/removevehicle', function(req, res){
   });
 });
 
+// Updates the given parking space with whether or not it is occupied
 router.get('/parkingspace', function(req, res){
   var id = req.query.id;
   var status = false;
@@ -110,6 +123,7 @@ router.get('/parkingspace', function(req, res){
   })
 });
 
+// Removes the given parking space
 router.get('/removespace', function(req, res){
   var id = req.query.id;
 

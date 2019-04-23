@@ -1,8 +1,11 @@
+/*
+* Vehicle model for the mongodb
+*/
 var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
 
-// The divesite db model
+// The vehicle db model
 var VehicleSchema = new Schema({
   license_plate: String,
   authorised: {type: Boolean, default: true},

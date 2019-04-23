@@ -1,9 +1,14 @@
+/*
+* DVLA API route handling
+*/
+
 const express = require('express');
 const router = express.Router();
 const request = require('request');
 
 const apiKey = "kSG768fKyaHy45wQ";
 
+// Searches dvla search websites api for info on the given license plate and returns it to the functional gateway pi
 router.get('/', function(req, res){
   var licensePlate = req.query.licensePlate;
   var apiurl = "https://dvlasearch.appspot.com/DvlaSearch?apikey=" + apiKey + "&licencePlate=" + licensePlate;

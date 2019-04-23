@@ -12,7 +12,7 @@ const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
-app.io = io;
+app.io = io; // In order to use io in router files and other files
 
 
 // Connect to mongodb
@@ -34,14 +34,15 @@ require('./config/routes')(app);
 // Declare the folder to use for public files, such as javascripts, images and css
 app.use(express.static('public'));
 
+// Event handler for when a socketio client connects
 io.on('connection', function(socket){
   console.log("Connection received!");
   socket.on('test', function(data){
     console.log("Client connected with message: " + data.msg);
   });
-  socket.emit('test', 'Connection successful');
+  socket.emit('test', 'Connection successful'); // 'test' listeners to test connection between server/client
 });
 
-http.listen(80);
+http.listen(port);
 
 console.log("Listening on port: " + port);
