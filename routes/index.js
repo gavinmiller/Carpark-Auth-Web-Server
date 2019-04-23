@@ -29,8 +29,25 @@ router.get('/message', function(req, res){
   res.send({'success':true});
 });
 
+router.get('/displayadvanced', function(req, res){
+  var statusCode = req.query.statusCode;
+  var message = req.query.message;
+
+  if (req.app && req.app.io){
+    req.app.io.emit('displayAdvanced', {status_code:statusCode, message:message});
+  }
+
+  res.send({'success':true});
+});
+
 router.get('/getvacancies', function(req, res){
   ParkingSpace.getFreeSpace(function(freeSpace){
+    console.log(freeSpace);
+    if (freeSpace && req.app && req.app.io){
+      console.log("Inside");
+      req.app.io.emit('displayAdvanced',{'status_code':'1', 'message':'Floor ' + freeSpace.location.floor + ', ' + freeSpace.location.direction});
+    }
+
     res.send({vacancies:freeSpace});
   });
 });
@@ -52,6 +69,16 @@ router.post('/addvehicle', function(req, res){
   });
 });
 
+router.get('/initparkingspace', function(req, res){
+  var id = req.query.id;
+  var floor = req.query.floor;
+  var direction = req.query.direction;
+
+  ParkingSpace.addParkingSpace(id, {floor:floor, direction:direction}, function(success){
+    res.send({success:success});
+  });
+});
+
 router.post('/addparkingspace', function(req, res){
   var id = req.body.id;
   var floor = req.body.floor;
@@ -68,6 +95,19 @@ router.get('/removevehicle', function(req, res){
   Vehicle.removeVehicle(licensePlate, function(success){
     res.send({success:success});
   });
+});
+
+router.get('/parkingspace', function(req, res){
+  var id = req.query.id;
+  var status = false;
+
+  if (req.query.status == 'True'){
+    status = true;
+  }
+
+  ParkingSpace.updateParkingSpace(id, status, function(success){
+    res.send({'success':success});
+  })
 });
 
 router.get('/removespace', function(req, res){

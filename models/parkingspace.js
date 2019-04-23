@@ -15,12 +15,7 @@ module.exports.getFreeSpace = function(callback){
   ParkingSpace.findOne({occupied:false}, function(err, space){
     if (err) throw err;
 
-    if (space){
-      callback(true);
-    }
-    else {
-      callback(false);
-    }
+    callback(space);
   });
 }
 
@@ -42,6 +37,25 @@ module.exports.addParkingSpace = function(id, location, callback){
 
         callback(true);
       });
+    }
+  });
+}
+
+module.exports.updateParkingSpace = function(id, status, callback){
+  ParkingSpace.findOne({id:id}, function(err, space){
+    if (err) throw err;
+
+    if (space){
+      space.occupied = status;
+
+      space.save(function(err){
+        if (err) throw err;
+
+        callback(true);
+      });
+    }
+    else {
+      callback(false);
     }
   });
 }
